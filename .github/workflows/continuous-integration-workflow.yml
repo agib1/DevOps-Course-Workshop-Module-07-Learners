@@ -7,3 +7,34 @@ jobs:
     runs-on: ubuntu-latest  # Sets the build environment a machine with the latest Ubuntu installed
     steps:
     - uses: actions/checkout@v4 # Adds a step to checkout the repository code
+
+    - name: Hello world       # Name of step
+      run: echo 'Hello world' # Command to run
+
+    - name: Setup .NET '5.0.3'
+      uses: actions/setup-dotnet@v3
+      with:
+        # Semantic version range syntax or exact version of a dotnet version
+        dotnet-version: '5.0.x'
+
+    - name: dotnet Build
+      run: dotnet build
+
+    - name: Test with the dotnet CLI
+      run: dotnet test
+
+    - name: npm install
+      run: npm install
+      working-directory: ./DotnetTemplate.Web
+
+    - name: npm build
+      run: npm run build
+      working-directory: ./DotnetTemplate.Web
+
+    - name: lint TypeScript code
+      run: npm run lint
+      working-directory: ./DotnetTemplate.Web
+
+    - name: run TypeScript tests
+      run: npm t
+      working-directory: ./DotnetTemplate.Web
